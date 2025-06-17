@@ -1,0 +1,23 @@
+name: Top GitHub Users
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * *'  # كل يوم 12 منتصف الليل UTC
+
+jobs:
+  release:
+    name: GitHub Active Users
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.CUSTOM_TOKEN }}
+
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 14
+
+      - uses: gayanvoice/top-github-users-action@master
+        env:
+          CUSTOM_TOKEN: ${{ secrets.CUSTOM_TOKEN }}
